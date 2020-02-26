@@ -1,0 +1,53 @@
+2020-01-11 14:05:08.293613
+final average detections: 4.897
+final average rpn_iou refined: 1986.234
+final average cls acc: 0.000
+final average cls acc refined: 0.000
+total roi bbox recall(thresh=0.100): 12004 / 14385 = 0.834480
+total roi bbox recall(thresh=0.300): 11183 / 14385 = 0.777407
+total roi bbox recall(thresh=0.500): 10126 / 14385 = 0.703928
+total roi bbox recall(thresh=0.700): 6380 / 14385 = 0.443518
+total roi bbox recall(thresh=0.900): 43 / 14385 = 0.002989
+total bbox recall(thresh=0.100): 12004 / 14385 = 0.834480
+total bbox recall(thresh=0.300): 11265 / 14385 = 0.783107
+total bbox recall(thresh=0.500): 10405 / 14385 = 0.723323
+total bbox recall(thresh=0.700): 8015 / 14385 = 0.557178
+total bbox recall(thresh=0.900): 640 / 14385 = 0.044491
+Averate Precision:
+Car AP@0.70, 0.70, 0.70:
+bbox AP:88.4702, 73.8296, 67.0865
+bev  AP:76.2260, 55.5588, 48.5447
+3d   AP:64.3693, 45.1246, 39.1543
+aos  AP:87.63, 71.82, 65.02
+Car AP@0.70, 0.50, 0.50:
+bbox AP:88.4702, 73.8296, 67.0865
+bev  AP:88.5753, 73.4721, 66.4810
+3d   AP:88.3475, 68.4173, 64.8338
+aos  AP:87.63, 71.82, 65.02
+
+2020-01-11 16:55:39.154577
+final average detections: 4.910
+final average rpn_iou refined: 1988.556
+final average cls acc: 0.000
+final average cls acc refined: 0.000
+total roi bbox recall(thresh=0.100): 11981 / 14385 = 0.832881
+total roi bbox recall(thresh=0.300): 11203 / 14385 = 0.778797
+total roi bbox recall(thresh=0.500): 10147 / 14385 = 0.705388
+total roi bbox recall(thresh=0.700): 6345 / 14385 = 0.441084
+total roi bbox recall(thresh=0.900): 43 / 14385 = 0.002989
+total bbox recall(thresh=0.100): 11994 / 14385 = 0.833785
+total bbox recall(thresh=0.300): 11306 / 14385 = 0.785958
+total bbox recall(thresh=0.500): 10411 / 14385 = 0.723740
+total bbox recall(thresh=0.700): 7998 / 14385 = 0.555996
+total bbox recall(thresh=0.900): 648 / 14385 = 0.045047
+Averate Precision:
+Car AP@0.70, 0.70, 0.70:
+bbox AP:88.5676, 74.2350, 67.0732
+bev  AP:76.3447, 55.5241, 48.7155
+3d   AP:64.4004, 45.3808, 39.2332
+aos  AP:87.57, 72.14, 64.92
+Car AP@0.70, 0.50, 0.50:
+bbox AP:88.5676, 74.2350, 67.0732
+bev  AP:88.6704, 73.4997, 66.5212
+3d   AP:88.5011, 68.5461, 64.8982
+aos  AP:87.57, 72.14, 64.92
