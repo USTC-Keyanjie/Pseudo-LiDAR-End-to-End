@@ -146,9 +146,8 @@ if __name__ == "__main__":
     if cuda:
         model = torch.nn.DataParallel(model).cuda()
 
-
     print("==> Loading checkpoint...")
-    ckpt_path = os.path.join(args.ckpt_root, "all", args.ckpt)
+    ckpt_path = os.path.join(args.ckpt_root, args.ckpt)
     ganet_ckpt_path = os.path.join(args.ckpt_root, "GANet", args.ganet_ckpt)
     pointrcnn_ckpt_path = os.path.join(args.ckpt_root, "pointrcnn", "all", args.pointrcnn_ckpt)
     rpn_ckpt_path = os.path.join(args.ckpt_root, "pointrcnn", "rpn", args.rpn_ckpt)

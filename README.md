@@ -73,17 +73,39 @@ bash dataset_preparation.sh
 
 ## Pretrained model
 
+The pretrained model is trained on the *train* split (3712 samples) and evaluated on the *val* split (3769 samples) and *test* split (7518 samples). The performance on validation set is as follows:
+
 ```
 Car AP@0.70, 0.70, 0.70:
-bbox AP:88.5676, 74.2350, 67.0732
-bev  AP:76.3447, 55.5241, 48.7155
-3d   AP:64.4004, 45.3808, 39.2332
-aos  AP:87.57, 72.14, 64.92
+bbox AP:87.5597, 67.4341, 59.4498
+bev  AP:74.2878, 49.7762, 45.5242
+3d   AP:61.9844, 42.8151, 36.8504
+aos  AP:85.96, 65.13, 57.18
+Car AP@0.70, 0.50, 0.50:
+bbox AP:87.5597, 67.4341, 59.4498
+bev  AP:87.8729, 67.3340, 59.2771
+3d   AP:87.5415, 65.8819, 58.2879
+aos  AP:85.96, 65.13, 57.18
+```
+
+a. Download the pretrained model.
+
+You could download the pretrained model(Car) of Pseudo-LiDAR End to End from [here(~40.18MB)](https://pan.baidu.com/s/1tq1cCYYSqYQoVy9DqG4G3w
+)(Password: op8m).
+
+b. Move it to checkpoints folder.
+
+```
+mkdir checkpoints/
+mv pl_e2e.pth checkpoints/
 ```
 
 ## Inference
 
-Coming soon.
+```
+cd tools/
+python eval.py --cfg_file cfgs/default.yaml --ckpt pl_e2e.pth --batch_size 4
+```
 
 ## Training
 

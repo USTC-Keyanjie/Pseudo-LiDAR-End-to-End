@@ -12,7 +12,7 @@ import numpy as np
 
 class MainNet(nn.Module):
     def __init__(self,
-                 num_classes='Car',
+                 num_classes=2,  # ('Background', 'Car')
                  max_high=1,
                  maxdisp=192,
                  use_xyz=True,
@@ -48,5 +48,5 @@ class MainNet(nn.Module):
         pts_rect = self.Depth_to_pts(data)
         data['pts_rect'] = pts_rect
 
-        # data = self.PointRCNN(data)
+        data = self.PointRCNN(data)
         return data
