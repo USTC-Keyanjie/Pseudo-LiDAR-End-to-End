@@ -10,8 +10,8 @@ In this work, I implemented the Pseudo-LiDAR End to End which can directly gener
 - [x] KITTI Dataset support
 - [x] TensorboardX
 - [x] Multiple GPUs support
+- [x] Inference end to end
 - [ ] Some bugs of inference and training will be fixed in some days
-- [ ] Inference end to end will coming soon
 - [ ] Training end to end will coming soon
 
 ## Installation
@@ -56,9 +56,9 @@ Pseudo-LiDAR-End-to-End
 │   │   │      ├──calib & label_2 & image_2 & image_3
 │   │   │   ├──testing
 │   │   │      ├──calib & image_2 & image_3
-├── lib
-├── pointnet2_lib
+├── libs
 ├── tools
+├── ...
 ```
 
 You can organize files manually or run shell script.
