@@ -105,6 +105,7 @@ You could download the pretrained model(Car) of Pseudo-LiDAR End to End from [Go
 b. Move it to checkpoints folder.
 
 ```
+cd ..
 mkdir checkpoints/
 mv pl_e2e.pth checkpoints/
 ```
