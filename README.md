@@ -166,8 +166,6 @@ python get_disp_map_by_GANet.py --cfg_file cfgs/default.yaml --ganet_ckpt GANet.
 
 ***Note***: The result of this code may override the output in disp_map directory, so you need to save the files in disp_map directory first or change the `output_dir` path.
 
-
-
 ## Reference
 
 - [GA-Net](https://github.com/feihuzhang/GANet)
