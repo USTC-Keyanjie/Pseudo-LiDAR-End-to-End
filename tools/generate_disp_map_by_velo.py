@@ -41,8 +41,8 @@ def generate_disp_map_from_depthmap(depth_map, calib):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate Disparity')
-    parser.add_argument('--data_path', type=str, default='../data/KITTI/object/testing')
-    parser.add_argument('--split_file', type=str, default='../data/KITTI/ImageSets/test.txt')
+    parser.add_argument('--data_path', type=str, default='../data/KITTI/object/training')
+    parser.add_argument('--split_file', type=str, default='../data/KITTI/ImageSets/trainval.txt')
     args = parser.parse_args()
 
     assert os.path.isdir(args.data_path)
