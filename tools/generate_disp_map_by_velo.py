@@ -49,7 +49,7 @@ if __name__ == '__main__':
     calib_dir = args.data_path + '/calib/'
     image_dir = args.data_path + '/image_2/'
     disparity_dir = args.data_path + '/disp_map/'
-    depthmap_dir = args.data_path + '/depth_map/'
+    # depthmap_dir = args.data_path + '/depth_map/'
 
     assert os.path.isdir(lidar_dir)
     assert os.path.isdir(calib_dir)
@@ -77,6 +77,6 @@ if __name__ == '__main__':
         image = cv2.imread(image_file)
         height, width = image.shape[:2]
         depth = generate_depth_map_from_velo(lidar, height, width, calib)
-        np.save(depthmap_dir + '/' + predix, depth)
+        # np.save(depthmap_dir + '/' + predix, depth)
         disp = generate_disp_map_from_depthmap(depth, calib)
         np.save(disparity_dir + '/' + predix, disp)

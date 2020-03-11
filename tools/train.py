@@ -260,7 +260,6 @@ if __name__ == "__main__":
     start_epoch = it = 0
     last_epoch = -1
 
-    print("==> Loading checkpoint...")
     total_keys = model.state_dict().keys().__len__()
     pure_model = model.module if isinstance(model, torch.nn.DataParallel) else model
     if args.ckpt is not None:
