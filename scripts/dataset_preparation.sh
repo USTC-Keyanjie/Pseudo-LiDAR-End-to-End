@@ -1,6 +1,8 @@
 public_dataset_path="/path/to/kitti/official/dataset" # e.g. "/data/public_dataset/kitti/object"
 
-cd ../data/KITTI/object/||exit
+cd ../data/KITTI/||exit
+rm -rf object
+mkdir object
 rm -rf training testing
 mkdir training
 mkdir testing
