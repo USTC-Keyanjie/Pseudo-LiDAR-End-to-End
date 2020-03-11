@@ -3,6 +3,7 @@ public_dataset_path="/path/to/kitti/official/dataset" # e.g. "/data/public_datas
 cd ../data/KITTI/||exit
 rm -rf object
 mkdir object
+cd object||exit
 rm -rf training testing
 mkdir training
 mkdir testing
