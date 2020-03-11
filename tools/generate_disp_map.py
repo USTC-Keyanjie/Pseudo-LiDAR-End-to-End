@@ -98,7 +98,6 @@ if __name__ == "__main__":
     dataset = Dataset(root_dir=args.data_root,
                       list_root=args.list_root,
                       mode=mode,
-                      npoints=args.npoints,
                       classes='Car',
                       logger=logger
                       )
