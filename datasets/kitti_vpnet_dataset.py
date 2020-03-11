@@ -1223,6 +1223,7 @@ class Kitti_VPNet_Dataset(Kitti_2015_Dataset):
         gt_boxes3d = kitti_utils.objs_to_boxes3d(gt_obj_list)
         gt_boxes2d = kitti_utils.objs_to_boxes2d(gt_obj_list)
 
+        # if not in TRAIN mode, ganet_target is an matrix full of zeros, and will not be used.
         left, right, ganet_target, start_x, start_y = self.image_transform(temp_data, gt_boxes2d)
 
         sample_info = {'left': left,
