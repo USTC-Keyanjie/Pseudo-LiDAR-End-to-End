@@ -135,8 +135,7 @@ if __name__ == "__main__":
     logger.info('==> Output file: %s' % result_dir)
 
     model.eval()
-    progress_bar = tqdm(total=len(data_loader), leave=True, desc='eval')
-    for iteration, data_dict in enumerate(data_loader):
+    for iteration, data_dict in enumerate(tqdm(data_loader)):
         sample_id = data_dict['sample_id']
         left, right = data_dict['left'], data_dict['right']
         batch_size = data_dict['P2'].shape[0]
@@ -156,4 +155,3 @@ if __name__ == "__main__":
 
         for i in range(disp_map.shape[0]):
             np.save(result_dir + '%06d.npy' % sample_id[i], disp_map[i])
-            print(sample_id[i])
