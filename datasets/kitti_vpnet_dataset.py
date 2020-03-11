@@ -1127,8 +1127,7 @@ class Kitti_VPNet_Dataset(Kitti_2015_Dataset):
         for key in batch[0].keys():
 
             # 按gt数据维度，按长度最长的组建Tensor
-            if cfg.RPN.ENABLED and key == 'gt_boxes3d' or \
-                    (cfg.RCNN.ENABLED and cfg.RCNN.ROI_SAMPLE_JIT and key in ['gt_boxes3d', 'roi_boxes3d']):
+            if key in ['gt_boxes3d', 'roi_boxes3d']:
                 max_gt = 0
                 for k in range(batch_size):
                     max_gt = max(max_gt, batch[k][key].__len__())
