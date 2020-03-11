@@ -35,6 +35,9 @@ parser = argparse.ArgumentParser(description='arg parser')
 # ckpt
 parser.add_argument('--ganet_ckpt', type=str, default='GANet.pth')
 
+# args
+parser.add_argument('--npoints', type=int, default=16384, help='sampled to the number of points')
+
 # super args
 parser.add_argument('--workers', type=int, default=0, help='number of workers for dataloader')
 parser.add_argument('--batch_size', type=int, default=1, help='testing batch size')
@@ -98,6 +101,7 @@ if __name__ == "__main__":
     dataset = Dataset(root_dir=args.data_root,
                       list_root=args.list_root,
                       mode=mode,
+                      npoints=args.npoints,
                       classes='Car',
                       logger=logger
                       )
