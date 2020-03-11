@@ -120,13 +120,13 @@ cd tools/
 b. Inference by GPU
 
 ```
-python eval.py --cfg_file cfgs/default.yaml --ckpt pl_e2e.pth --batch_size 1 --worker 16
+python eval.py --cfg_file cfgs/default.yaml --ckpt pl_e2e.pth --batch_size 4 --worker 16
 ```
 
 The code also support multi GPU, add `–mgpus`.
 
 ```
-python eval.py --cfg_file cfgs/default.yaml --ckpt pl_e2e.pth --batch_size 1 --worker 16 --mgpus
+python eval.py --cfg_file cfgs/default.yaml --ckpt pl_e2e.pth --batch_size 4 --worker 16 --mgpus
 ```
 
 ## Training
