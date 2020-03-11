@@ -1247,8 +1247,7 @@ class Kitti_VPNet_Dataset(Kitti_2015_Dataset):
         start_y = h - 240
         temp = temp_data[:, start_y:, :]
         if self.mode == 'TRAIN':
-            '''
-            crop_width = 624  # 624 528
+            crop_width = 528  # 624 528
             # temp_data = np.zeros([6, crop_height, crop_width], 'float32')
             left_bound = int(max(gt_boxes2d[:, 2].min() - crop_width, 0))
             right_bound = int(min(gt_boxes2d[:, 0].max(), w - crop_width))
@@ -1257,12 +1256,7 @@ class Kitti_VPNet_Dataset(Kitti_2015_Dataset):
             else:
                 start_x = random.randint(left_bound, right_bound)
             temp_data = temp[:, :, start_x: start_x + crop_width]
-            '''
-            crop_width = 1248
-            crop_height = 240
-            temp_data = np.zeros([7, crop_height, crop_width], 'float32')
-            start_x = 0
-            temp_data[:, :, start_x: start_x + w] = temp
+
         else:
             crop_width = 1248
             crop_height = 240
