@@ -21,6 +21,7 @@ In this work, I implemented the Pseudo-LiDAR End to End which can directly gener
 - [x] Inference end to end
 - [x] Some bugs of inference and training will be fixed in some days
 - [x] Training end to end
+- [x] Get disp map by GANet
 - [ ] Some code need to update
 
 ## Installation
@@ -144,7 +145,7 @@ b. train end to end
 python train.py --ckpt pl_e2e.pth --batch_size 4 --worker 16 --train_mode all --mgpus
 ```
 
-## Generate disp map by GANet
+## Get disp map by GANet
 
 a. Enter `checkpoint/GANet` directory
 
