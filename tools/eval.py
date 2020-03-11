@@ -48,6 +48,7 @@ parser.add_argument('--workers', type=int, default=0, help='number of workers fo
 parser.add_argument('--batch_size', type=int, default=1, help='testing batch size')
 
 parser.add_argument('--cuda', type=bool, default=True, help='use cuda?')
+parser.add_argument('--mgpus', action='store_true', default=False, help='whether to use multiple gpu')
 parser.add_argument('--save_result', type=bool, default=True, help='save results?')
 parser.add_argument('--test', action='store_true', default=False, help='evaluate without ground truth')
 
@@ -144,43 +145,18 @@ if __name__ == "__main__":
     model = MainNet(num_classes=dataset.num_class, maxdisp=cfg.GANET.MAX_DISP, npoints=args.npoints, mode=mode)
     print("==> Building success!")
     if cuda:
-        model = torch.nn.DataParallel(model).cuda()
+        model = model.cuda()
+        if args.mgpus:
+            model = torch.nn.DataParallel(model).cuda()
 
     print("==> Loading checkpoint...")
     ckpt_path = os.path.join(args.ckpt_root, args.ckpt)
-    ganet_ckpt_path = os.path.join(args.ckpt_root, "GANet", args.ganet_ckpt)
-    pointrcnn_ckpt_path = os.path.join(args.ckpt_root, "pointrcnn", "all", args.pointrcnn_ckpt)
-    rpn_ckpt_path = os.path.join(args.ckpt_root, "pointrcnn", "rpn", args.rpn_ckpt)
-    rcnn_ckpt_path = os.path.join(args.ckpt_root, "pointrcnn", "rcnn", args.rcnn_ckpt)
 
     if os.path.isfile(ckpt_path):
         train_utils.load_checkpoint(model.module,
                                     ckpt_file=ckpt_path,
                                     optimizer=None,
                                     logger=logger)
-    else:
-        total_keys = model.state_dict().keys().__len__()
-        # load ganet ckpt
-        if os.path.isfile(ganet_ckpt_path):
-            train_utils.load_part_ckpt(model.module,
-                                       ckpt_file=ganet_ckpt_path,
-                                       logger=logger,
-                                       total_keys=total_keys)
-        # load pointrcnn ckpt
-        if os.path.isfile(pointrcnn_ckpt_path):
-            train_utils.load_part_ckpt(model.module,
-                                       ckpt_file=pointrcnn_ckpt_path,
-                                       logger=logger,
-                                       total_keys=total_keys)
-        elif os.path.isfile(rpn_ckpt_path) and os.path.isfile(rcnn_ckpt_path):
-            train_utils.load_part_ckpt(model.module,
-                                       ckpt_file=rpn_ckpt_path,
-                                       logger=logger,
-                                       total_keys=total_keys)
-            train_utils.load_part_ckpt(model.module,
-                                       ckpt_file=rcnn_ckpt_path,
-                                       logger=logger,
-                                       total_keys=total_keys)
 
     result_dir = args.output_root
     final_output_dir = os.path.join(result_dir, 'final_result', 'data')

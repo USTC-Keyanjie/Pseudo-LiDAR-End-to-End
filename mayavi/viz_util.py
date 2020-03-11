@@ -136,7 +136,7 @@ def draw_gt_boxes3d(gt_boxes3d, fig, color=(1, 1, 1), line_width=1, draw_text=Tr
 
 
 if __name__ == '__main__':
-    index = 9
+    index = 3
     pc = np.load('test_dir/%06d.npy' % index)[:, :-1]
 
     index = index - 10000 if index >= 10000 else index

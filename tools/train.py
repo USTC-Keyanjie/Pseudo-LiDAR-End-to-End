@@ -25,10 +25,6 @@ parser = argparse.ArgumentParser(description='arg parser')
 
 # ckpt
 parser.add_argument('--ckpt', type=str, default=None)
-parser.add_argument('--ganet_ckpt', type=str, default=None)
-parser.add_argument('--pointrcnn_ckpt', type=str, default=None)
-parser.add_argument('--rpn_ckpt', type=str, default=None)
-parser.add_argument('--rcnn_ckpt', type=str, default=None)
 
 # train args
 parser.add_argument('--workers', type=int, default=0, help='number of workers for dataloader')
@@ -117,7 +113,6 @@ def create_dataloader(logger):
     return train_data_loader, val_data_loader
 
 
-# TODO: 这个没看懂，再研究一下
 def create_optimizer(model):
     if cfg.TRAIN.OPTIMIZER == 'adam':
         optimizer = optim.Adam(model.parameters(), lr=cfg.TRAIN.LR, weight_decay=cfg.TRAIN.WEIGHT_DECAY)
@@ -139,10 +134,6 @@ def create_optimizer(model):
             optimizer_func, 3e-3, get_layer_groups(model), wd=cfg.TRAIN.WEIGHT_DECAY, true_wd=True, bn_wd=True
         )
 
-        # for param in model.GANet.parameters():
-        #     param.requires_grad = False
-
-        # fix rpn: do this since we use costomized optimizer.step
         if cfg.RPN.ENABLED and cfg.RPN.FIXED:
             for param in model.rpn.parameters():
                 param.requires_grad = False
@@ -213,6 +204,11 @@ if __name__ == "__main__":
         cfg.RPN.ENABLED = False
         cfg.RCNN.ENABLED = True
         root_result_dir = os.path.join('../', 'outputs', 'rcnn', cfg.TAG)
+    elif args.train_mode == 'all':
+        cfg.GANET.ENABLED = True
+        cfg.RPN.ENABLED = True
+        cfg.RCNN.ENABLED = True
+        root_result_dir = os.path.join('../', 'outputs', 'all', cfg.TAG)
     else:
         raise NotImplementedError
 
@@ -250,9 +246,15 @@ if __name__ == "__main__":
     optimizer = create_optimizer(model)
     # optimizer = optim.Adam(model.parameters(), lr=0.0002, betas=(0.9, 0.999))
 
-    if args.mgpus:
-        model = nn.DataParallel(model)
-    model = model.cuda()
+    # whether use cuda
+    cuda = args.cuda
+    if cuda and not torch.cuda.is_available():
+        raise Exception("No GPU found, please run without --cuda")
+
+    if cuda:
+        model = model.cuda()
+        if args.mgpus:
+            model = torch.nn.DataParallel(model).cuda()
 
     # load checkpoint if it is possible
     start_epoch = it = 0
@@ -265,13 +267,13 @@ if __name__ == "__main__":
         it, start_epoch = train_utils.load_checkpoint(pure_model, ckpt_path, optimizer, logger)
         last_epoch = start_epoch + 1
 
-    if args.ganet_ckpt is not None:
-        ganet_ckpt_path = os.path.join(args.ckpt_root, "GANet", args.ganet_ckpt)
-        train_utils.load_part_ckpt(pure_model, ganet_ckpt_path, logger, total_keys)
-
-    if args.pointrcnn_ckpt is not None:
-        pointrcnn_ckpt_path = os.path.join(args.ckpt_root, "pointrcnn", "all", args.pointrcnn_ckpt)
-        train_utils.load_part_ckpt(pure_model, pointrcnn_ckpt_path, logger, total_keys)
+    # if args.ganet_ckpt is not None:
+    #     ganet_ckpt_path = os.path.join(args.ckpt_root, "GANet", args.ganet_ckpt)
+    #     train_utils.load_part_ckpt(pure_model, ganet_ckpt_path, logger, total_keys)
+    #
+    # if args.pointrcnn_ckpt is not None:
+    #     pointrcnn_ckpt_path = os.path.join(args.ckpt_root, "pointrcnn", "all", args.pointrcnn_ckpt)
+    #     train_utils.load_part_ckpt(pure_model, pointrcnn_ckpt_path, logger, total_keys)
 
     lr_scheduler, bnm_scheduler = create_scheduler(optimizer,
                                                    total_steps=len(train_loader) * args.epochs,

@@ -85,7 +85,7 @@ def model_joint_fn_decorator():
         if isinstance(model, nn.DataParallel):
             rpn_cls_loss_func = model.module.PointRCNN.rpn.rpn_cls_loss_func
         else:
-            rpn_cls_loss_func = model.rpn.PointRCNN.rpn_cls_loss_func
+            rpn_cls_loss_func = model.PointRCNN.rpn.rpn_cls_loss_func
 
         rpn_cls_label_flat = rpn_cls_label.view(-1)
         rpn_cls_flat = rpn_cls.view(-1)

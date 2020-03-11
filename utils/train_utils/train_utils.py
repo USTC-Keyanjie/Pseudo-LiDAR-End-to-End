@@ -109,7 +109,7 @@ def save_checkpoint(state, filename='checkpoint'):
 #         logger.info("==> Done (loaded %d/%d)" % (update_keys, total_keys))
 #     else:
 #         raise FileNotFoundError
-# TODO: 使用print代替logger，后期加上logger功能
+
 def load_checkpoint(model, ckpt_file='checkpoint', optimizer=None, logger=None):
     if os.path.isfile(ckpt_file):
         logger.info("==> Loading from checkpoint '{}'".format(ckpt_file))

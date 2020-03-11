@@ -11,8 +11,9 @@ In this work, I implemented the Pseudo-LiDAR End to End which can directly gener
 - [x] TensorboardX
 - [x] Multiple GPUs support
 - [x] Inference end to end
-- [ ] Some bugs of inference and training will be fixed in some days
-- [ ] Training end to end will coming soon
+- [x] Some bugs of inference and training will be fixed in some days
+- [x] Training end to end
+- [ ] Some code need to update
 
 ## Installation
 
@@ -53,9 +54,9 @@ Pseudo-LiDAR-End-to-End
 │   │   ├── ImageSets
 │   │   ├── object
 │   │   │   ├──training
-│   │   │      ├──calib & label_2 & image_2 & image_3
+│   │   │      ├──calib & label_2 & image_2 & image_3 & disp_map
 │   │   │   ├──testing
-│   │   │      ├──calib & image_2 & image_3
+│   │   │      ├──calib & image_2 & image_3 & disp_map
 ├── libs
 ├── tools
 ├── ...
@@ -63,7 +64,7 @@ Pseudo-LiDAR-End-to-End
 
 You can organize files manually or run shell script.
 
-a. change `public_dataset_path` in  scripts/dataset_preparation.sh to your own kitti dataset path.
+a. change `public_dataset_path` in  `scripts/dataset_preparation.sh` to your own kitti dataset path.
 
 b. run `public_dataset_path.sh`
 
@@ -90,7 +91,7 @@ aos  AP:85.96, 65.13, 57.18
 
 a. Download the pretrained model.
 
-You could download the pretrained model(Car) of Pseudo-LiDAR End to End from [here(~40.18MB)](https://pan.baidu.com/s/1tq1cCYYSqYQoVy9DqG4G3w
+You could download the pretrained model(Car) of Pseudo-LiDAR End to End from [Google Drive](https://drive.google.com/file/d/1FZN-0mZEwBSIEOqG1unCKA2-3Vw3ZVCo/view?usp=sharing) or [BaiduYun](https://pan.baidu.com/s/1tq1cCYYSqYQoVy9DqG4G3w
 )(Password: op8m).
 
 b. Move it to checkpoints folder.
@@ -102,14 +103,37 @@ mv pl_e2e.pth checkpoints/
 
 ## Inference
 
+a. Enter `tools` directory
+
 ```
 cd tools/
-python eval.py --cfg_file cfgs/default.yaml --ckpt pl_e2e.pth --batch_size 4
+```
+
+b. Inference by GPU
+
+```
+python eval.py --cfg_file cfgs/default.yaml --ckpt pl_e2e.pth --batch_size 1 --worker 16
+```
+
+The code also support multi GPU, add `–mgpus`.
+
+```
+python eval.py --cfg_file cfgs/default.yaml --ckpt pl_e2e.pth --batch_size 1 --worker 16 --mgpus
 ```
 
 ## Training
 
-Coming soon.
+a. Prepare disp map
+
+```
+python generate_disp_map.py --cfg_file cfgs/default.yaml --ganet_ckpt GANet.pth  --batch_size 4 --workers 16 --output_dir ../data/KITTI/object/training/disp_map/ --mgpus
+```
+
+b. train end to end
+
+```
+python train.py --ckpt pl_e2e.pth --batch_size 4 --worker 16 --train_mode all --mgpus
+```
 
 ## Reference
 

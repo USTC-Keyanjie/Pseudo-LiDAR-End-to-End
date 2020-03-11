@@ -109,6 +109,20 @@ class Depth_to_pts(nn.Module):
         y = y.unsqueeze(-1)
         pts_rect = torch.cat((x, y, uv_depth[:, :, 2].unsqueeze(-1)), dim=-1)  # [B, N, 3]
 
+        # # ------------------- #
+        # # 为了生成伪点云，将pts从rect转到velo系
+        # # project_rect_to_ref
+        # pts_3d_ref = torch.transpose(torch.matmul(R0_inv, torch.transpose(pts_rect, 1, 2)), 1, 2)
+        #
+        # # project_ref_to_velo
+        # pts_3d_ref = torch.cat((pts_3d_ref, torch.ones(bs, n, 1).cuda()), dim=2)  # [B, N, 4]
+        # pts_velo = torch.matmul(pts_3d_ref, torch.transpose(C2V, 1, 2))  # [B, N, 3]
+        # pts_velo = torch.cat((pts_velo, torch.ones(bs, n, 1).cuda()), dim=2)  # [B, N, 4]
+        #
+        # return pts_velo
+        # # ------------------- #
+
+        # # ------------------- #
         # # 因为输入图片时就只取下面240个像素，所以这里不需要转成velo系砍去高于1米的点云了
         # # project_rect_to_ref
         # pts_3d_ref = torch.transpose(torch.matmul(R0_inv, torch.transpose(pts_rect, 1, 2)), 1, 2)
@@ -124,6 +138,7 @@ class Depth_to_pts(nn.Module):
         #
         # # project_velo_to_rect
         # pts_rect = torch.matmul(pts_velo, torch.matmul(torch.transpose(V2C, 1, 2), torch.transpose(R0, 1, 2)))
+        # # ------------------- #
 
         pts_rect_sampled = torch.zeros(pts_rect.shape[0], self.npoints, 3).cuda()
         for i in range(pts_rect.shape[0]):

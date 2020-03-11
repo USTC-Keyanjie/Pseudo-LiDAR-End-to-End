@@ -22,7 +22,7 @@ class MainNet(nn.Module):
         if cfg.GANET.ENABLED:
             self.GANet = GANet(maxdisp)
 
-        if cfg.RPN.ENABLED or cfg.RCNN.ENABLED:
+        if cfg.RPN.ENABLED and cfg.RCNN.ENABLED:
             self.VPNet = VPNet()
 
             scale_list = [1, 0.75, 0.5, 0.25]
@@ -35,6 +35,9 @@ class MainNet(nn.Module):
             if cfg.GANET.FIXED:
                 self.GANet.eval()
             data = self.GANet(data)
+
+        if not cfg.RPN.ENABLED and not cfg.RCNN.ENABLED:
+            return data
 
         # disp to depth
         f_bls = data['f_bls']
