@@ -1,5 +1,7 @@
 .idea
 checkpoints
 mayavi/test_dir
+outputs
+
 tools/merge_weights.py
 tools/generate_pseudo_lidar.py

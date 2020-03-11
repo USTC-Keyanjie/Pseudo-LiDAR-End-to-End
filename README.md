@@ -4,6 +4,14 @@
 
 In this work, I implemented the Pseudo-LiDAR End to End which can directly generate accurate 3D bounding box **from binocular camera images in a end-to-end method**. This implementation solution includes three parts: stereo matching, depth map to Pseudo-LiDAR, and point cloud-based 3D object detection algorithm. First, I chose [GA-Net](https://arxiv.org/abs/1904.06587) as the stereo matching algorithm for this project because GA-Net is the top-ranked algorithm on the KITTI leaderboard and its aggregation strategy is more conducive to generating more detailed depth map. Second, according to the idea introduced in this paper on [Pseudo-LiDAR](https://arxiv.org/abs/1812.07179), the depth map can be transformed into a pseudo-point-cloud representation through the camera's intrinsics parameter matrix. Finally, the point cloud-based [PointRCNN](https://arxiv.org/abs/1812.04244) detection algorithm is used as a 3D object detector. PointRCNN can also be used to detect Pseudo-LiDAR data, because of foreground points classification strategy, refinement in the canonical coordinate by the proposed bin-based 3D box regression loss, and the set abstraction of its backbone network PointNet++.
 
+### Results
+
+![000742](README/000742.png)
+
+![001759](README/001759.png)
+
+![000185](README/000185.png)
+
 ### Supported features and ToDo list
 
 - [x] PyTorch 1.2
