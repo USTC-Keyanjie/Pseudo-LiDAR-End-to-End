@@ -22,3 +22,4 @@ ln -s $public_dataset_path/data_object_image_2/testing/image_2/ .
 ln -s $public_dataset_path/data_object_image_3/testing/image_3/ .
 ln -s $public_dataset_path/data_object_velodyne/testing/velodyne/ .
 mkdir disp_map
+echo 'Data preparation completed!'
