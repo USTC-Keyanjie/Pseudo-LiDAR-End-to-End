@@ -1177,13 +1177,12 @@ class Kitti_VPNet_Dataset(Kitti_2015_Dataset):
 
     def get_ganet_sample(self, index):
         sample_id = int(self.sample_id_list[index])
-        # sample_id = 2321
+
 
         # TODO: 数据增强 id>10000的数据需要数据增强
         left = self.get_image_2(sample_id)
         right = self.get_image_3(sample_id)
         calib = self.get_calib(sample_id)
-        ganet_target = self.get_disp_map(sample_id)
         size = np.shape(left)
 
         height = size[0]
@@ -1208,7 +1207,9 @@ class Kitti_VPNet_Dataset(Kitti_2015_Dataset):
         temp_data[4, :, :] = (g - np.mean(g[:])) / np.std(g[:])
         temp_data[5, :, :] = (b - np.mean(b[:])) / np.std(b[:])
 
-        temp_data[6, :, :] = ganet_target
+        if self.mode == 'TRAIN':
+            ganet_target = self.get_disp_map(sample_id)
+            temp_data[6, :, :] = ganet_target
 
         P2 = calib.P2
         V2C = calib.V2C
