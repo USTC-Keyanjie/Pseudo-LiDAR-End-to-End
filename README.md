@@ -135,7 +135,7 @@ python eval.py --cfg_file cfgs/default.yaml --ckpt pl_e2e.pth --batch_size 4 --w
 a. Prepare disp map
 
 ```
-python generate_disp_map.py --cfg_file cfgs/default.yaml --ganet_ckpt GANet.pth  --batch_size 4 --workers 16 --output_dir ../data/KITTI/object/training/disp_map/ --mgpus
+python generate_disp_map_by_velo.py
 ```
 
 b. train end to end
@@ -143,6 +143,29 @@ b. train end to end
 ```
 python train.py --ckpt pl_e2e.pth --batch_size 4 --worker 16 --train_mode all --mgpus
 ```
+
+## Generate disp map by GANet
+
+a. Enter `checkpoint/GANet` directory
+
+```
+cd ../checkpoint
+mkdir GANet
+cd GANet
+```
+
+b. Download GANet pretrained model from [Google Drive](https://drive.google.com/open?id=19hVQXpcXwp7SrHgJ5Tlu7_iCYNi4Oj9u). You can also get the link from the [repo of GANet](https://github.com/feihuzhang/GANet).
+
+c. Run the code.
+
+```
+cd ../../tools
+python generate_disp_map_by_GANet.py --cfg_file cfgs/default.yaml --ganet_ckpt GANet.pth  --batch_size 4 --workers 16 --output_dir ../data/KITTI/object/training/disp_map/ --mgpus
+```
+
+Note: The result of this code may override the output in disp_map directory, so you need to save the files in disp_map directory first or change the `output_dir` path.
+
+
 
 ## Reference
 
