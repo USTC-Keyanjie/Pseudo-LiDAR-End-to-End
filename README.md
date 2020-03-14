@@ -43,7 +43,7 @@ a. Clone the Pseudo-LiDAR End to End repository.
 git clone https://github.com/ustc-keyanjie/Pseudo-LiDAR-End-to-End.git
 ```
 
-b. Install the dependent python libraries like `easydict`,`tqdm`, `tensorboardX `etc.
+b. Install the dependent python libraries like `easydict`,`tqdm`, `tensorboardX`etc.
 
 c. Build and install the`GANet`, `sync_bn`, `pointnet2_lib`,  `iou3d`,  `roipool3d` libraries by executing the following command:
 
